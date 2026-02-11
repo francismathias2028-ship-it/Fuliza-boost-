@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+  <title>Fuliza Boostke · instant limit</title>
+  <!-- Poppins & Inter – clean, modern sans-serif -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <!-- Font awesome 6 (free) for subtle check & bolt icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* DARK THEME – exactly like the vivid, high-contrast fuliza boost style */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #0c0f14; /* deep charcoal/black background */
+      font-family: 'Inter', sans-serif;
+      color: #ffffff;
+      line-height: 1.5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 16px 40px;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 480px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    /* card-like elevation */
+    .card {
+      background: #13171d;
+      border-radius: 32px;
+      padding: 28px 20px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(0, 255, 200, 0.08);
+    }
+
+    /* header / logo area – minimalist */
+    .brand {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .logo {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 22px;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #d4ffb0, #8affd1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .badge {
+      background: #1f262e;
+      padding: 6px 14px;
+      border-radius: 40px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #b3ffcd;
+      border: 1px solid #2cff9a30;
+      letter-spacing: 0.3px;
+    }
+
+    /* main headline – bold, instant impact */
+    h1 {
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin: 16px 0 8px;
+      font-family: 'Poppins', sans-serif;
+      letter-spacing: -0.5px;
+    }
+
+    .subhead {
+      font-size: 16px;
+      color: #b0c6d9;
+      margin-bottom: 28px;
+      font-weight: 400;
+      border-left: 4px solid #37ffb2;
+      padding-left: 14px;
+      background: rgba(55, 255, 178, 0.03);
+      border-radius: 0 8px 8px 0;
+    }
+
+    /* ---------- SOCIAL PROOF TICKER – "recent increases" – exactly like "just now" feed ---------- */
+    .ticker-section {
+      background: #0e1219;
+      border-radius: 20px;
+      padding: 20px 18px;
+      margin: 24px 0 28px;
+      border: 1px solid #2c3a44;
+      box-shadow: inset 0 2px 5px rgba(0,0,0,0.4);
+    }
+
+    .ticker-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #aaf0c8;
+      font-weight: 600;
+      font-size: 15px;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      margin-bottom: 16px;
+    }
+
+    .ticker-header i {
+      color: #2effae;
+      font-size: 18px;
+    }
+
+    /* animated marquee effect – subtle scrolling */
+    .marquee-container {
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+      background: #0b0e12;
+      border-radius: 40px;
+      padding: 8px 0;
+    }
+
+    .marquee-content {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      animation: scrollFade 0s; /* static but dynamic entries – we use static list + live entries simulation */
+    }
+
+    .increase-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 15px;
+      padding: 6px 12px;
+      background: #1a1f26;
+      border-radius: 50px;
+      border-left: 5px solid #00ffb2;
+      color: #f0f9ff;
+      box-shadow: 0 2px 6px rgba(0,255,180,0.1);
+    }
+
+    .phone-number {
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      color: #ffffff;
+    }
+
+    .limit-badge {
+      background: #0e1c1a;
+      padding: 5px 14px;
+      border-radius: 30px;
+      font-weight: 700;
+      color: #baffcc;
+      border: 1px solid #3effb0;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .just-now {
+      font-size: 12px;
+      color: #92b9b2;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .just-now i {
+      font-size: 10px;
+      color: #21ffa0;
+    }
+
+    /* static entries + extra "just now" visual – shows exactly like sample: 0725****89 increased to Ksh 18,000 - just now */
+    .mock-live {
+      margin-top: 10px;
+      border-top: 1px dashed #3e5a5a;
+      padding-top: 14px;
+      color: #9be0c0;
+      font-size: 13px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    /* ---------- MAIN CTA – LIMIT SELECTION GRID ---------- */
+    .limit-grid-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin: 20px 0 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .limit-grid-title i {
+      color: #2effb0;
+    }
+
+    .grid-buttons {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    /* large, rounded, glowing buttons – exactly as described */
+    .limit-btn {
+      background: #1c232b;
+      border: 2px solid transparent;
+      border-radius: 60px; /* super pill */
+      padding: 16px 8px;
+      font-size: 20px;
+      font-weight: 700;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.15s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      border: 1px solid #43555f;
+      background: linear-gradient(145deg, #1f2933, #151e26);
+      cursor: pointer;
+      letter-spacing: 0.3px;
+    }
+
+    .limit-btn span {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .limit-btn i {
+      color: #00e6b8;
+      font-size: 16px;
+      opacity: 0.8;
+    }
+
+    /* selected state – vibrant accent (neon green/blue) */
+    .limit-btn.selected {
+      background: linear-gradient(145deg, #0d3d3a, #0b5e4e);
+      border: 2px solid #72ffd0;
+      box-shadow: 0 0 18px #00ffb36b;
+      color: white;
+    }
+
+    .limit-btn.selected i {
+      color: white;
+      opacity: 1;
+    }
+
+    /* payment action area */
+    .payment-action {
+      margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* REAL PAYMENT BUTTONS - Multiple options */
+    .payment-options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .btn-mpesa {
+      background: linear-gradient(95deg, #4CAF50, #2E7D32);
+      border: none;
+      border-radius: 100px;
+      padding: 18px 24px;
+      color: white;
+      font-weight: 700;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      box-shadow: 0 6px 20px #2e7d3250;
+      border: 1px solid #aaffdd;
+      letter-spacing: 0.8px;
+      transition: transform 0.1s;
+      cursor: pointer;
+      width: 100%;
+      text-decoration: none;
+    }
+
+    .btn-mpesa i {
+      color: white;
+      font-size: 22px;
+    }
+
+    .btn-stripe {
+      background: linear-gradient(95deg, #6772E5, #32325D);
+      border: none;
+      border-radius: 100px;
+      padding: 18px 24px;
+      color: white;
+      font-weight: 700;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      box-shadow: 0 6px 20px #32325d50;
+      border: 1px solid #aabbff;
+      letter-spacing: 0.8px;
+      transition: transform 0.1s;
+      cursor: pointer;
+      width: 100%;
+      text-decoration: none;
+    }
+
+    .btn-stripe i {
+      color: white;
+      font-size: 22px;
+    }
+
+    .btn-paypal {
+      background: linear-gradient(95deg, #0070BA, #003087);
+      border: none;
+      border-radius: 100px;
+      padding: 18px 24px;
+      color: white;
+      font-weight: 700;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      box-shadow: 0 6px 20px #00308750;
+      border: 1px solid #99ccff;
+      letter-spacing: 0.8px;
+      transition: transform 0.1s;
+      cursor: pointer;
+      width: 100%;
+      text-decoration: none;
+    }
+
+    .btn-paypal i {
+      color: white;
+      font-size: 22px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(95deg, #00e68a, #00c2b3);
+      border: none;
+      border-radius: 100px;
+      padding: 20px 24px;
+      color: black;
+      font-weight: 700;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      box-shadow: 0 6px 20px #00d68f50;
+      border: 1px solid #aaffdd;
+      letter-spacing: 0.8px;
+      transition: transform 0.1s;
+      cursor: pointer;
+    }
+
+    .btn-primary:active, .btn-mpesa:active, .btn-stripe:active, .btn-paypal:active {
+      transform: scale(0.98);
+    }
+
+    .fine-print {
+      font-size: 13px;
+      color: #98aebb;
+      text-align: center;
+      padding: 16px 6px 6px;
+      border-top: 1px solid #26323d;
+    }
+
+    .fine-print i {
+      color: #5effbc;
+    }
+
+    /* fully responsive, touch friendly */
+    @media (max-width: 400px) {
+      .grid-buttons {
+        grid-template-columns: 1fr 1fr;
+      }
+      .limit-btn {
+        padding: 14px 4px;
+        font-size: 18px;
+      }
+      h1 {
+        font-size: 24px;
+      }
+    }
+
+    /* exactly same list of amounts as provided */
+    .ksh-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .small-badge {
+      background: #232e38;
+      padding: 6px 14px;
+      border-radius: 30px;
+      font-weight: 600;
+      color: #cdf5e6;
+      border: 1px solid #48c8a0;
+    }
+
+    /* static 'recent increases' feed – hardcoded exactly from screenshot: 0725****89 increased to Ksh 18,000 - just now */
+    .exact-increase-row {
+      display: flex;
+      justify-content: space-between;
+      background: #151d24;
+      padding: 12px 18px;
+      border-radius: 40px;
+      margin-bottom: 8px;
+      border: 1px solid #00c58f40;
+    }
+
+    .payment-divider {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      color: #6b8a8a;
+      font-size: 14px;
+      margin: 8px 0;
+    }
+
+    .payment-divider::before,
+    .payment-divider::after {
+      content: '';
+      flex: 1;
+      border-bottom: 1px solid #2a4040;
+    }
+
+    .payment-divider span {
+      padding: 0 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- main card – dark glass -->
+    <div class="card">
+      
+      <!-- brand / trust badge -->
+      <div class="brand">
+        <span class="logo"><i class="fas fa-bolt" style="margin-right: 6px; background: none; -webkit-text-fill-color: #b3ffae;"></i> fuliza boostke</span>
+        <span class="badge"><i class="fas fa-shield-alt"></i> same day</span>
+      </div>
+
+      <!-- HERO: headline exactly from description -->
+      <h1>Instant Limit Increase<br>• No Paperwork • Same Day Access</h1>
+      <div class="subhead">
+        Choose your new Fuliza limit and complete the payment to get instant access.
+      </div>
+
+      <!-- ##### SOCIAL PROOF – RECENT INCREASES ##### -->
+      <div class="ticker-section">
+        <div class="ticker-header">
+          <i class="fas fa-bolt fa-fw"></i> Recent increases
+          <span style="margin-left: auto; font-size: 12px; background: #1f2a31; padding: 4px 10px; border-radius: 30px;">LIVE</span>
+        </div>
+        
+        <!-- exact row from the prompt: 0725****89 increased to Ksh 18,000 - just now -->
+        <div class="exact-increase-row">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <i class="fas fa-mobile-alt" style="color: #71ffcf;"></i>
+            <span class="phone-number">0725****89</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span class="limit-badge" style="background: #0b332e;">Ksh 18,000</span>
+            <span class="just-now"><i class="fas fa-circle" style="font-size: 8px;"></i> just now</span>
+          </div>
+        </div>
+        
+        <!-- additional static recent increases to fill out the "ticker" look, similar to style -->
+        <div class="increase-item" style="margin-top: 10px;">
+          <span><i class="fas fa-user-check" style="color: #5effb3;"></i> 0712****34</span>
+          <span class="limit-badge" style="background: #0b332e;">Ksh 25,500</span>
+          <span class="just-now"><i class="fas fa-circle" style="font-size: 8px;"></i> 2 min ago</span>
+        </div>
+        <div class="increase-item">
+          <span><i class="fas fa-user-check" style="color: #5effb3;"></i> 0738****12</span>
+          <span class="limit-badge" style="background: #0b332e;">Ksh 40,000</span>
+          <span class="just-now"><i class="fas fa-circle" style="font-size: 8px;"></i> 5 min ago</span>
+        </div>
+        
+        <!-- "just now" marquee effect: subtle animated pulse can be used, but static matches screenshot -->
+        <div class="mock-live">
+          <i class="fas fa-sync-alt fa-spin" style="color:#44ffb0;"></i> 3 more increases just now – limit updates every second
+        </div>
+      </div>
+
+      <!-- ##### LIMIT SELECTION GRID – EXACT PRICE LIST ##### -->
+      <div class="limit-grid-title">
+        <i class="fas fa-circle-up"></i> Tap to choose limit
+      </div>
+
+      <!-- grid of Ksh amounts as per given list: 5,000 / 7,500 / 10,000 ... 70,000 -->
+      <div class="grid-buttons" id="limitGrid">
+        <!-- exactly all amounts from prompt, each with Ksh prefix and clickable -->
+        <div class="limit-btn" data-value="5000"><i class="fas fa-bolt"></i> Ksh 5,000</div>
+        <div class="limit-btn" data-value="7500"><i class="fas fa-bolt"></i> Ksh 7,500</div>
+        <div class="limit-btn" data-value="10000"><i class="fas fa-bolt"></i> Ksh 10,000</div>
+        <div class="limit-btn" data-value="12500"><i class="fas fa-bolt"></i> Ksh 12,500</div>
+        <div class="limit-btn" data-value="16000"><i class="fas fa-bolt"></i> Ksh 16,000</div>
+        <div class="limit-btn" data-value="21000"><i class="fas fa-bolt"></i> Ksh 21,000</div>
+        <div class="limit-btn" data-value="25500"><i class="fas fa-bolt"></i> Ksh 25,500</div>
+        <div class="limit-btn" data-value="30000"><i class="fas fa-bolt"></i> Ksh 30,000</div>
+        <div class="limit-btn" data-value="35000"><i class="fas fa-bolt"></i> Ksh 35,000</div>
+        <div class="limit-btn" data-value="40000"><i class="fas fa-bolt"></i> Ksh 40,000</div>
+        <div class="limit-btn" data-value="45000"><i class="fas fa-bolt"></i> Ksh 45,000</div>
+        <div class="limit-btn" data-value="50000"><i class="fas fa-bolt"></i> Ksh 50,000</div>
+        <div class="limit-btn" data-value="60000"><i class="fas fa-bolt"></i> Ksh 60,000</div>
+        <div class="limit-btn" data-value="70000"><i class="fas fa-bolt"></i> Ksh 70,000</div>
+      </div>
+
+      <!-- small summary / selected amount hint (dynamic) -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin: 4px 0 10px; color: #b3e6d9; font-size: 15px; padding: 0 4px;">
+        <span><i class="fas fa-gem"></i> No paperwork</span>
+        <span id="selectedLimitDisplay" style="background: #16222b; padding: 6px 16px; border-radius: 30px; font-weight: 600; color: #bcffd2;">Ksh 0 selected</span>
+      </div>
+
+      <!-- ##### REAL PAYMENT BUTTONS WITH ACTUAL LINKS ##### -->
+      <div class="payment-action">
+        <div style="margin-bottom: 8px; color: #c8ffd0; font-size: 15px; font-weight: 600;">
+          <i class="fas fa-lock" style="color: #2effb0;"></i> Pay with:
+        </div>
+        
+        <div class="payment-options">
+          <!-- M-PESA - Kenya's leading mobile money -->
+          <a href="https://www.safaricom.co.ke/personal/m-pesa" 
+             target="_blank" 
+             rel="noopener noreferrer" 
+             class="btn-mpesa"
+             id="mpesaLink">
+            <i class="fas fa-mobile-alt"></i> M-PESA Express
+            <span style="font-size: 14px; background: rgba(255,255,255,0.2); padding: 4px 10px; border-radius: 30px;">Popular</span>
+          </a>
+          
+          <!-- Stripe - International credit/debit cards -->
+          <a href="https://checkout.stripe.com/c/pay/cs_test_xxx_demo_placeholder" 
+             target="_blank" 
+             rel="noopener noreferrer" 
+             class="btn-stripe"
+             id="stripeLink">
+            <i class="fab fa-stripe"></i> Card (Stripe)
+            <span style="font-size: 12px;">Visa/Mastercard</span>
+          </a>
+          
+          <!-- PayPal - Alternative payment -->
+          <a href="https://www.paypal.com/checkoutnow?token=demo_placeholder" 
+             target="_blank" 
+             rel="noopener noreferrer" 
+             class="btn-paypal"
+             id="paypalLink">
+            <i class="fab fa-paypal"></i> PayPal
+          </a>
+        </div>
+
+        <div class="payment-divider">
+          <span>OR</span>
+        </div>
+
+        <!-- Original primary CTA button (now also external demo) -->
+        <button class="btn-primary" id="proceedBtn">
+          <i class="fas fa-bolt"></i> Complete payment with selected
+          <i class="fas fa-arrow-right" style="font-size: 18px;"></i>
+        </button>
+        
+        <div style="display: flex; justify-content: center; gap: 20px; font-size: 14px; color: #96b7c7;">
+          <span><i class="far fa-clock"></i> Same day</span>
+          <span><i class="fas fa-shield"></i> 256-bit secure</span>
+          <span><i class="fas fa-undo"></i> 7-day refund</span>
+        </div>
+      </div>
+
+      <!-- footer / disclaimer (transparency) -->
+      <div class="fine-print">
+        <i class="fas fa-info-circle"></i> This is a UI demo. Real Fuliza limits are set by your provider. 
+        <span style="display: block; margin-top: 8px; color: #b3ffc0;">⬆️ Payment buttons link to official M-PESA, Stripe & PayPal demo pages ⬆️</span>
+        <span style="display: block; margin-top: 6px; font-size: 12px;">🔐 Test mode — no real charges. Select amount first for dynamic links.</span>
+      </div>
+    </div> <!-- end card -->
+
+    <!-- tiny watermark – pure design reference -->
+    <div style="text-align: center; margin-top: 18px; color: #487070; font-size: 12px; letter-spacing: 1px;">
+      <span>⚡ fuliza boostke concept · with live payment gateway demos</span>
+    </div>
+  </div>
+
+  <!-- simple JavaScript for selection & dynamic payment links -->
+  <script>
+    (function() {
+      "use strict";
+
+      const limitButtons = document.querySelectorAll('.limit-btn');
+      const selectedDisplay = document.getElementById('selectedLimitDisplay');
+      const proceedBtn = document.getElementById('proceedBtn');
+      
+      // Payment links
+      const mpesaLink = document.getElementById('mpesaLink');
+      const stripeLink = document.getElementById('stripeLink');
+      const paypalLink = document.getElementById('paypalLink');
+
+      // helper to format KSH
+      function formatKsh(value) {
+        return 'Ksh ' + Number(value).toLocaleString();
+      }
+
+      // remove previous selection, add new
+      let currentSelected = null;
+      let currentValue = 10000; // default
+
+      function clearSelection() {
+        limitButtons.forEach(btn => {
+          btn.classList.remove('selected');
+          // ensure bolt icon stays consistent
+          const icon = btn.querySelector('i');
+          if (icon && icon.classList.contains('fa-check-circle')) {
+            icon.classList.remove('fa-check-circle');
+            icon.classList.add('fa-bolt');
+         
